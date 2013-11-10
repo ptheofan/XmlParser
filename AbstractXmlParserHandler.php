@@ -82,7 +82,11 @@ abstract class AbstractXmlParserHandler extends Element {
 
         $elem = new Element();
         $elem->name = strtolower($elementName);
-        $elem->attrs = array_combine(array_map('strtolower', array_keys($attrs)), array_values($attrs));
+        if ($attrs && $attrs !== array())
+            $elem->attrs = array_combine(array_map('strtolower', array_keys($attrs)), array_values($attrs));
+        else
+            $elem->attrs = array();
+
         $elem->parent = $this->currentElement;
 
         if ($this->currentElement)
@@ -124,7 +128,10 @@ abstract class AbstractXmlParserHandler extends Element {
      */
     public function openHandler($elementName, $attrs) {
         $this->name = strtolower($elementName);
-        $this->attrs = array_combine(array_map('strtolower', array_keys($attrs)), array_values($attrs));
+        if ($attrs && $attrs !== array())
+            $this->attrs = array_combine(array_map('strtolower', array_keys($attrs)), array_values($attrs));
+        else
+            $this->attrs = array();
     }
 
     /**
